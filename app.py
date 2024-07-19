@@ -23,7 +23,7 @@ meter = ttk.Meter(
 )
 meter.pack()
 
-meter.configure(amountused = 70)
+meter.configure(amountused = f'{1+2}')
 
 meter.configure(subtext="loading...")
 
