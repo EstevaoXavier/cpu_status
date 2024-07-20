@@ -28,13 +28,16 @@ def verificar_temperatura():
 app = ttk.Window(themename="cosmo")
 app.title("CPU STATUS")
 app.geometry("400x700")
+frame = ttk.Frame(app)
+frame.grid(row=0, column=0, padx=10, pady=10, sticky="n")
+
 
 info_disco = psutil.disk_usage('/')
 
 label_memoria = ttk.Label(app, text='Disco e RAM')
-label_memoria.pack()
 
 meter_memory = ttk.Meter(
+    frame,
     metersize=120,
     padding=20,
     amountused=0,
@@ -47,13 +50,12 @@ meter_memory = ttk.Meter(
     interactive=False,
     bootstyle='primary',
 )
-meter_memory.pack(side="left")
-meter_memory.configure(amountused = f'{info_disco.used / (1024**3):.2f}')
 
 # Métrica da RAM
 
 info_ram = psutil.virtual_memory()
 meter_ram = ttk.Meter(
+    frame,
     metersize=120,
     padding=20,
     amountused=0,
@@ -66,10 +68,19 @@ meter_ram = ttk.Meter(
     interactive=False,
     bootstyle="info",
 )
-meter_ram.pack(side="right")
+
+label_memoria.grid(row=0, column=0, padx=5, pady=5, sticky='n')
+
+meter_memory.grid(row=1, column=0, padx=5, pady=5, sticky='n')
+meter_memory.configure(amountused = f'{info_disco.used / (1024**3):.2f}')
+
+meter_ram.grid(row=1, column=1, padx=5, pady=5, sticky='n')
 meter_ram.configure(amountused = f'{info_ram.used / (1024**3):.2f}')
 
-separator = ttk.Separator(app, orient='horizontal')
-separator.pack(side="bottom")
+# Separador
+separator = ttk.Separator(app, orient='horizontal',)
+separator.grid(row=3, column=0, padx=5, pady=5, sticky='n',)
+
+
 
 app.mainloop()
