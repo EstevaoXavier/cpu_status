@@ -45,9 +45,31 @@ meter_memory = ttk.Meter(
     subtextfont= f"-size 6",
     textfont="-size 11 -weight bold",
     interactive=False,
+    bootstyle='primary',
 )
-meter_memory.pack()
+meter_memory.pack(side="left")
 meter_memory.configure(amountused = f'{info_disco.used / (1024**3):.2f}')
 
+# Métrica da RAM
+
+info_ram = psutil.virtual_memory()
+meter_ram = ttk.Meter(
+    metersize=120,
+    padding=20,
+    amountused=0,
+    amounttotal= f"{info_ram.total / (1024**3):.2f}",
+    metertype="full",
+    textright="RAM",
+    subtext=f"Máximo: {info_ram.total / (1024**3):.2f}GB",
+    subtextfont= f"-size 6",
+    textfont="-size 11 -weight bold",
+    interactive=False,
+    bootstyle="info",
+)
+meter_ram.pack(side="right")
+meter_ram.configure(amountused = f'{info_ram.used / (1024**3):.2f}')
+
+separator = ttk.Separator(app, orient='horizontal')
+separator.pack(side="bottom")
 
 app.mainloop()
