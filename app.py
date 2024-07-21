@@ -5,45 +5,25 @@ Image.CUBIC = Image.BICUBIC
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import psutil
-import time
+import platform
 
-def verificar_temperatura():
-    try:
-        # Obtém as temperaturas dos sensores
-        temps = psutil.sensors_temperatures()
-        
-        # Verifica se há sensores de temperatura disponíveis
-        if not temps:
-            print("Nenhum sensor de temperatura disponível.")
-        else:
-            # Itera sobre os sensores encontrados
-            for name, entries in temps.items():
-                print(f"Sensores de {name}:")
-                for entry in entries:
-                    print(f"  {entry.label or name}: {entry.current}°C (high={entry.high}°C, critical={entry.critical}°C)")
-    except AttributeError:
-        # Caso a funcionalidade não seja suportada pelo sistema
-        print("A funcionalidade de sensores de temperatura não é suportada no seu sistema.")
 def fazer_analise():
         info_disco = psutil.disk_usage('/')
         info_ram = psutil.virtual_memory()
 
         meter_memory.configure(amountused = f'{info_disco.used / (1024**3):.2f}')
         meter_ram.configure(amountused = f'{info_ram.used / (1024**3):.2f}')
-        print('entou na funcao')
-
-
-
-
+        print('Memorias Visualizadas')
+        print(psutil.sensors_battery)
+        
 #definição do app
 app = ttk.Window(themename="cosmo")
 app.title("CPU STATUS")
-app.geometry("400x700")
+app.geometry("400x240")
 frame = ttk.Frame(app)
 frame.grid(row=0, column=0, padx=66, pady=10)
 app.resizable(width=False, height=False)
 
-button_att = ttk.Button(app, text="Fazer analise", command=fazer_analise)
 
 #  Métrica do Disco
 info_disco = psutil.disk_usage('/')
@@ -65,7 +45,6 @@ meter_memory = ttk.Meter(
 )
 
 # Métrica da RAM
-
 info_ram = psutil.virtual_memory()
 meter_ram = ttk.Meter(
     frame,
@@ -83,20 +62,12 @@ meter_ram = ttk.Meter(
 )
 
 # Janela
-
 label_memoria.grid(row=0, column=0, padx=0, pady=0, sticky='n')
 
 meter_memory.grid(row=1, column=0, padx=0, pady=10, sticky='w')
 meter_ram.grid(row=1, column=1, padx=0, pady=10, sticky='e')
 
-separador = ttk.Separator(app, orient='horizontal',)
-separador.grid(row=2, column=0, padx=0, pady=10, sticky='ew',)
-
-button_att.grid(row=3, column=0, padx=0, pady=10, sticky="ew")
-
-
-frame.grid_rowconfigure(0, weight=1)
-frame.grid_columnconfigure(0, weight=1)
-frame.grid_columnconfigure(1, weight=1)
+button_att = ttk.Button(app, text="ATUALIZAR", command=fazer_analise)
+button_att.grid(row=2, column=0, padx=0, pady=5, sticky="ew")
 
 app.mainloop()
