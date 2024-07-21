@@ -18,7 +18,7 @@ def fazer_analise():
         
 # Definição do app
 app = ttk.Window(themename="cosmo")
-app.title("CPU STATUS")
+app.title("CPU STATUS v0.1")
 app.geometry("400x240")
 frame = ttk.Frame(app)
 frame.grid(row=0, column=0, padx=66, pady=10)
