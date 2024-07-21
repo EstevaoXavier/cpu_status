@@ -6,7 +6,6 @@ Image.CUBIC = Image.BICUBIC
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import psutil
-import platform
 
 # Comando para Atualizar as informações
 def fazer_analise():
