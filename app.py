@@ -15,7 +15,6 @@ def fazer_analise():
         meter_memory.configure(amountused = f'{info_disco.used / (1024**3):.2f}')
         meter_ram.configure(amountused = f'{info_ram.used / (1024**3):.2f}')
         print('Memorias Visualizadas')
-        print(psutil.sensors_battery)
         
 # Definição do app
 app = ttk.Window(themename="cosmo")
