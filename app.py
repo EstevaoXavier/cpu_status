@@ -1,12 +1,14 @@
-# para corrigir o problema do ttk.meter
+# Para corrigir o problema do ttk.meter
 from PIL import Image
 Image.CUBIC = Image.BICUBIC
-# importações
+
+# Importações
 import ttkbootstrap as ttk
 from ttkbootstrap.constants import *
 import psutil
 import platform
 
+# Comando para Atualizar as informações
 def fazer_analise():
         info_disco = psutil.disk_usage('/')
         info_ram = psutil.virtual_memory()
@@ -16,7 +18,7 @@ def fazer_analise():
         print('Memorias Visualizadas')
         print(psutil.sensors_battery)
         
-#definição do app
+# Definição do app
 app = ttk.Window(themename="cosmo")
 app.title("CPU STATUS")
 app.geometry("400x240")
